@@ -1,3 +1,78 @@
-<Solution>
-  <Project Path="Practical-1 .Net/Practical-1 .Net.csproj" />
-</Solution>
+using System;
+
+namespace StudentAdmissionApp
+{
+    // Class definition
+    class StudentAdmission
+    {
+        // Private fields (Data Hiding)
+        private int studentID;
+        private string studentName;
+        private double entranceScore;
+        private string admissionStatus;
+
+        // Private helper method
+        private void EvaluateStatus()
+        {
+            if (entranceScore >= 60.0)
+            {
+                admissionStatus = "ACCEPTED";
+            }
+            else
+            {
+                admissionStatus = "REJECTED";
+            }
+        }
+
+        // Default Constructor
+        public StudentAdmission()
+        {
+            studentID = 0;
+            studentName = "Unassigned";
+            entranceScore = 0.0;
+            admissionStatus = "PENDING";
+        }
+
+        // Parameterized Constructor
+        public StudentAdmission(int id, string name, double score)
+        {
+            studentID = id;
+            studentName = name;
+            entranceScore = score;
+            EvaluateStatus(); // Auto-calculate status upon object creation
+        }
+
+        // Output details using C# String Formatting
+        public void DisplayStudentDetails()
+        {
+            // Negative width (-12, -20) means left-align. :F2 formats to 2 decimal places.
+            Console.WriteLine($"{studentID,-12}{studentName,-20}{entranceScore,-15:F2}{admissionStatus,-15}");
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("===========================================================");
+            Console.WriteLine("          STUDENT ADMISSION MANAGEMENT MODULE              ");
+            Console.WriteLine("===========================================================");
+
+            // Creating objects using Parameterized Constructors
+            StudentAdmission s1 = new StudentAdmission(101, "Alice Smith", 88.50);
+            StudentAdmission s2 = new StudentAdmission(102, "Bob Johnson", 54.00);
+            StudentAdmission s3 = new StudentAdmission(103, "Charlie Davis", 72.30);
+
+            // Table Header (using left-alignment spacing)
+            Console.WriteLine($"{"Student ID",-12}{"Name",-20}{"Score (%)",-15}{"Status",-15}");
+            Console.WriteLine("-----------------------------------------------------------");
+
+            // Display object data
+            s1.DisplayStudentDetails();
+            s2.DisplayStudentDetails();
+            s3.DisplayStudentDetails();
+
+            Console.WriteLine("===========================================================");
+        }
+    }
+}
